@@ -9,10 +9,26 @@ class Data_model extends CI_Model{
         return $this->db->affected_rows();
     }
 
-    public function get_data($table){
-        $this->db->where('hadiah != "" ');
+    public function get_data($id_group){
+        if ($id_group == 2) {
+            // $table = "ajb";
+            $this->db->where('id_cabang = "0600" ');
+        } else if ($id_group == 3) {
+            // $table = "bms";
+            $this->db->where('id_cabang = "0400" ');
+        } else if ($id_group == 4) {
+            // $table = "pwt1";
+            $this->db->where('id_cabang = "0200" ');
+        } else if ($id_group == 5) {
+            // $table = "pwt2";
+            $this->db->where('id_cabang = "0300" ');
+        } else if ($id_group == 6) {
+            // $table = "wangon";
+            $this->db->where('id_cabang = "0500" ');
+        }
+        $this->db->where('hadiah !="" ');
         $this->db->order_by('tanggal_pengundian', 'desc');
-        return $this->db->get($table)->result();
+        return $this->db->get('all_cabang')->result();
     }
 
     public function get_allcabang(){
@@ -23,31 +39,31 @@ class Data_model extends CI_Model{
 
 
     public function get_ajb(){
-        $sql  = "select * FROM ajb where hadiah='' or hadiah is null ORDER BY RAND() LIMIT 1;";
+        $sql  = "select * FROM ajb where id_cabang='0600' and ( hadiah='' or hadiah is null ) ORDER BY RAND() LIMIT 1;";
         $data = $this->db->query($sql);
         return $data->row_array();
     }
 
     public function get_pwt1(){
-        $sql  = "select * FROM pwt1 where hadiah='' or hadiah is null ORDER BY RAND() LIMIT 1;";
+        $sql  = "select * FROM all_cabang where id_cabang='0200' and ( hadiah='' or hadiah is null )  ORDER BY RAND() LIMIT 1;";
         $data = $this->db->query($sql);
         return $data->row_array();
     }
 
     public function get_pwt2(){
-        $sql  = "select * FROM pwt2 where hadiah='' or hadiah is null ORDER BY RAND() LIMIT 1;";
+        $sql  = "select * FROM all_cabang where id_cabang='0300' and ( hadiah='' or hadiah is null )  ORDER BY RAND() LIMIT 1;";
         $data = $this->db->query($sql);
         return $data->row_array();
     }
 
     public function get_bms(){
-        $sql  = "select * FROM bms where hadiah='' or hadiah is null ORDER BY RAND() LIMIT 1;";
+        $sql  = "select * FROM all_cabang where id_cabang='0400' and ( hadiah='' or hadiah is null )  ORDER BY RAND() LIMIT 1;";
         $data = $this->db->query($sql);
         return $data->row_array();
     }
 
     public function get_wangon(){
-        $sql  = "select * FROM wangon where hadiah='' or hadiah is null ORDER BY RAND() LIMIT 1;";
+        $sql  = "select * FROM all_cabang where id_cabang='0500' and ( hadiah='' or hadiah is null )  ORDER BY RAND() LIMIT 1;";
         $data = $this->db->query($sql);
         return $data->row_array();
     }

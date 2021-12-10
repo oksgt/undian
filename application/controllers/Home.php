@@ -15,21 +15,7 @@ class Home extends CI_Controller{
     }
 
     public function load_pemenang($id_group){
-        $table = "";
-        if ($id_group == 1) {
-            $table = "all_cabang";
-        } else if ($id_group == 2) {
-            $table = "ajb";
-        } else if ($id_group == 3) {
-            $table = "bms";
-        } else if ($id_group == 4) {
-            $table = "pwt1";
-        } else if ($id_group == 5) {
-            $table = "pwt2";
-        } else if ($id_group == 6) {
-            $table = "wangon";
-        }
-        $data = $this->Data_model->get_data($table);
+        $data = $this->Data_model->get_data($id_group);
         echo '<table class="table table-hover table-striped">
         <thead>
           <tr>
@@ -83,7 +69,7 @@ class Home extends CI_Controller{
         $data = $this->Data_model->get_ajb();
         if(!empty($data)){
             $object = ['hadiah' => $this->input->post('hadiah'), 'tanggal_pengundian' => Date('Y-m-d H:i:s')];
-            $affected = $this->Data_model->update_hadiah('ajb', $object, ['id' => $data['id']]);
+            $affected = $this->Data_model->update_hadiah('all_cabang', $object, ['id' => $data['id']]);
             if($affected > 0){
                 $arr['NOSAMW'] = $data['NOSAMW'];
                 $arr['success'] = true;
@@ -104,7 +90,7 @@ class Home extends CI_Controller{
         $data = $this->Data_model->get_pwt1();
         if(!empty($data)){
             $object = ['hadiah' => $this->input->post('hadiah'), 'tanggal_pengundian' => Date('Y-m-d H:i:s')];
-            $affected = $this->Data_model->update_hadiah('pwt1', $object, ['id' => $data['id']]);
+            $affected = $this->Data_model->update_hadiah('all_cabang', $object, ['id' => $data['id']]);
             if($affected > 0){
                 $arr['NOSAMW'] = $data['NOSAMW'];
                 $arr['success'] = true;
@@ -125,7 +111,7 @@ class Home extends CI_Controller{
         $data = $this->Data_model->get_pwt2();
         if(!empty($data)){
             $object = ['hadiah' => $this->input->post('hadiah'), 'tanggal_pengundian' => Date('Y-m-d H:i:s')];
-            $affected = $this->Data_model->update_hadiah('pwt2', $object, ['id' => $data['id']]);
+            $affected = $this->Data_model->update_hadiah('all_cabang', $object, ['id' => $data['id']]);
             if($affected > 0){
                 $arr['NOSAMW'] = $data['NOSAMW'];
                 $arr['success'] = true;
@@ -146,7 +132,7 @@ class Home extends CI_Controller{
         $data = $this->Data_model->get_bms();
         if(!empty($data)){
             $object = ['hadiah' => $this->input->post('hadiah'), 'tanggal_pengundian' => Date('Y-m-d H:i:s')];
-            $affected = $this->Data_model->update_hadiah('bms', $object, ['id' => $data['id']]);
+            $affected = $this->Data_model->update_hadiah('all_cabang', $object, ['id' => $data['id']]);
             if($affected > 0){
                 $arr['NOSAMW'] = $data['NOSAMW'];
                 $arr['success'] = true;
@@ -167,7 +153,7 @@ class Home extends CI_Controller{
         $data = $this->Data_model->get_wangon();
         if(!empty($data)){
             $object = ['hadiah' => $this->input->post('hadiah'), 'tanggal_pengundian' => Date('Y-m-d H:i:s')];
-            $affected = $this->Data_model->update_hadiah('wangon', $object, ['id' => $data['id']]);
+            $affected = $this->Data_model->update_hadiah('all_cabang', $object, ['id' => $data['id']]);
             if($affected > 0){
                 $arr['NOSAMW'] = $data['NOSAMW'];
                 $arr['success'] = true;
