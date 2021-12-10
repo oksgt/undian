@@ -10,13 +10,32 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/app.css') ?>">
-  <title>Hello, world!</title>
+  <title>Undian</title>
+  <style>
+    .full {
+      background: url('<?php echo base_url() ?>assets/bg-1.jpg') no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    .vcenter {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
+  </style>
 </head>
 
-<body>
+<body class="full">
 
   <div class="container">
-    <div class="panel panel-primary shadow">
+
+  
+
+
+    <div class="vcenter panel panel-primary shadow" style="background-color: rgba(255, 255, 255, .30); backdrop-filter: blur(5px); border: none">
       <div class="panel-body text-center">
         <div class="slotwrapper text-center" id="example10">
           <?php
@@ -59,14 +78,6 @@
         });
       });
     });
-
-
-    // $('#btn-example2').click(function() {
-    //   $('#example10 ul').playSpin({
-    //     stopSeq: 'leftToRight',
-    //     endNum: [1, 2, 3, 4, 5, 6, 7],
-    //   });
-    // });
   </script>
   
 </body>

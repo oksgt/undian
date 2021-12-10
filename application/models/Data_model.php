@@ -9,6 +9,12 @@ class Data_model extends CI_Model{
         return $this->db->affected_rows();
     }
 
+    public function get_data($table){
+        $this->db->where('hadiah != "" ');
+        $this->db->order_by('tanggal_pengundian', 'desc');
+        return $this->db->get($table)->result();
+    }
+
     public function get_allcabang(){
         $sql  = "select * FROM all_cabang where hadiah='' or hadiah is null ORDER BY RAND() LIMIT 1;";
         $data = $this->db->query($sql);
