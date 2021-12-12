@@ -4,7 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=1050">
 
   <!-- Bootstrap CSS -->
 
@@ -88,6 +88,7 @@
   <script src="<?php echo base_url('node_modules/socket.io/client-dist/socket.io.js'); ?>"></script>
   <script src="<?php echo base_url('node_modules/sweetalert2/dist/sweetalert2.all.min.js'); ?>"></script>
   <script src="<?= base_url('assets/slotmachine.js') ?>"></script>
+  <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
   <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"> 
     </script>
   <script>
@@ -98,6 +99,8 @@
       }
     });
 
+    
+
     function load_pemenang() {
       var id_group = $('#input_group').val();
       if(id_group > 0){
@@ -106,7 +109,15 @@
           url: "<?php echo base_url('index.php/home/load_pemenang/'); ?>"+id_group,
           cache: false,
           success: function(html) {
+            // function ExportToExcel(type="xslx", fn, dl) {
+            //   var elt = document.getElementById('table_pemenang');
+            //   var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            //   return dl ?
+            //     XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+            //     XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+            // }
             $('#container-pemenang').html(html);
+            
           },
           error: function(xhr, status, error) {
             alert(error + " " + window.location.hostname);
@@ -173,6 +184,7 @@
                   if (data.success == true) {
                     socket.emit('ticket', {
                       message: data.NOSAMW,
+                      id_group: id_group,
                     });
                   } else {
                     Swal.fire(
@@ -196,8 +208,10 @@
       });
 
       socket.on("ticket", (data) => {
-        console.log(data.message.message);
-        const ticket_ = data.message.message;
+        console.log(data.message);
+        // console.log(data.id_group.id_group);
+        const ticket_ = data.message;
+        const group_ = data.id_group;
         const ticket = ticket_.split("");
         $('#example10 ul').playSpin({
           // time: 1000,

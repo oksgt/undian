@@ -4,7 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=1024">
 
   <!-- Bootstrap CSS -->
 
@@ -31,11 +31,7 @@
 <body class="full">
 
   <div class="container">
-
-  
-
-
-    <div class="vcenter panel panel-primary shadow" style="background-color: rgba(255, 255, 255, .30); backdrop-filter: blur(5px); border: none">
+    <div class=" panel panel-primary shadow" style="background-color: rgba(255, 255, 255, .30); backdrop-filter: blur(5px); border: none">
       <div class="panel-body text-center">
         <div class="slotwrapper text-center" id="example10">
           <?php
@@ -54,6 +50,14 @@
         </div>
       </div>
     </div>
+    <div class="panel panel-info" style="background-color: rgba(255, 255, 255, .80); backdrop-filter: blur(5px); border: none">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-weight: bold">Nama Pemenang</h3>
+      </div>
+      <div class="panel-body" id="container-pemenang">
+
+      </div>
+    </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
@@ -67,14 +71,40 @@
         "my-custom-header": "abcd"
       }
     });
+
+    function load_pemenang_2(id_group) {
+      // var id_group = $('#input_group').val();
+      if(id_group > 0){
+        $.ajax({
+          type: "GET",
+          url: "<?php echo base_url('index.php/home/load_pemenang_2/'); ?>"+id_group,
+          cache: false,
+          success: function(html){
+            $('#container-pemenang').html(html);
+            
+          },
+          error: function(xhr, status, error) {
+            alert(error + " " + window.location.hostname);
+          },
+        });
+      }
+    }
+    
     $(document).ready(function() {
       socket.on("ticket", (data) => {
-        console.log(data.message.message);
-        const ticket_ = data.message.message;
+        console.log(data.message);
+        console.log(data.id_group);
+        const ticket_ = data.message;
+        const group_ = data.id_group;
         const ticket = ticket_.split("");
+        $('#container-pemenang').html("");
         $('#example10 ul').playSpin({
           stopSeq: 'leftToRight',
           endNum: ticket,
+          // time:100,
+          onFinish: function(num) {
+            load_pemenang_2(group_);
+          }
         });
       });
     });

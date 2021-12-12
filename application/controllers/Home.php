@@ -16,7 +16,7 @@ class Home extends CI_Controller{
 
     public function load_pemenang($id_group){
         $data = $this->Data_model->get_data($id_group);
-        echo '<table class="table table-hover table-striped">
+        echo '<table class="table table-hover table-striped" id="table_pemenang">
         <thead>
           <tr>
             <th>No.</th>
@@ -38,6 +38,43 @@ class Home extends CI_Controller{
                         <td>'.$r->hadiah.'</td>
                         <td>'.$r->tanggal_pengundian.'</td>
                     </tr>';
+            $no++;
+        }
+          
+        echo '</tbody> </table>';
+    }
+
+    public function load_pemenang_2($id_group){
+        $data = $this->Data_model->get_data_2($id_group);
+        
+        // echo '<table class="table table-hover table-striped" id="table_pemenang">
+        // <thead>
+        //   <tr>
+        //     <th>No.</th>
+        //     <th>No Pelanggan</th>
+        //     <th>Nama</th>
+        //     <th>Alamat</th>
+        //     <th>Hadiah</th>
+        //     <th>Tanggal Pengundian</th>
+        //   </tr>
+        // </thead>
+        // <tbody>';
+        $no=1;
+        foreach ($data as $r) {
+            echo '<div class="jumbotron">
+                    <h2>'.$r->hadiah.'</h2>
+                    <h1>'.$r->NAMA.'</h1>
+                    <h3>'.$r->NOSAMW.'</h3>
+                    <p>'.$r->ALAMAT.'</p>
+                </div>';
+            // echo '<tr>
+            //             <td>'.$no.'</td>
+            //             <td>'.$r->NOSAMW.'</td>
+            //             <td>'.$r->NAMA.'</td>
+            //             <td>'.$r->ALAMAT.'</td>
+            //             <td>'.$r->hadiah.'</td>
+            //             <td>'.$r->tanggal_pengundian.'</td>
+            //         </tr>';
             $no++;
         }
           

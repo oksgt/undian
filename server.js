@@ -31,7 +31,8 @@ io.on("connection", (socket) => {
   socket.on("ticket", (data) => {
     console.log(data);
     io.sockets.emit( 'ticket', {
-        message: data
+        message: data.message,
+        id_group: data.id_group
     });
 });
 
